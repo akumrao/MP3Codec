@@ -105,6 +105,33 @@ void Plot::plot(initializer_list<DataVector> il)
     //* Actually plotting happens at Plot::show()
 
     //* check if even number of data vectors
+    if (il.size() == 1){
+       int dd= il.begin()->size();
+        DataVector x1 = linspace(0, 1, dd);
+        const DataVector x2 = *il.begin();
+        
+        initializer_list<DataVector> il2{x1, x2 };
+        
+       ofstream fout( (this->filenamePrefix + string(".dat")).c_str() );
+    this->nCurve = 0;
+    for (auto it=il2.begin(); it!=il2.end(); ++it) {
+        auto itEven = it++;
+        if (it->size()!=itEven->size()){
+            throw length_error("Pairwise data vectors must have the same lengths");
+        }
+        const DataVector &x = *itEven;
+        const DataVector &y = *it;
+
+        fout << "# Curve " << (this->nCurve)++ << endl;
+        for (unsigned i=0; i<x.size(); ++i) {
+            fout << x[i] << "," << y[i] << endl;
+        }
+        fout << endl << endl;
+    }
+    fout.close();
+    return;
+    }
+    
     if (il.size() % 2){
         throw length_error("Arguements must be even number of data vectors");
     }

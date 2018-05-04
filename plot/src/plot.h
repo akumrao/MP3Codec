@@ -35,7 +35,7 @@ typedef std::vector<double> DataVector;
 class Plot
 {
 public:
-    Plot(unsigned mode=SCREEN);
+    Plot(unsigned mode=PDF);
     void xlabel(const std::string &label);
     void ylabel(const std::string &label);
     void title(const std::string &label);

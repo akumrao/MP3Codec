@@ -45,6 +45,19 @@ int main()
     }
 
 
+   // int z[]={3,4,5,6,9};
+   // int t[]={1,2,3,4,5};
+    example1(x, pdf11);
+    
+    vector<double> z={3,4,5,6,9};
+    vector<double> t={1,2,3,4,5};
+    
+    Plot curvePlot;
+
+    curvePlot.plot({z});
+    //curvePlot.plot({t,z});
+    curvePlot.exec();
+    
     // Example 1
     example1(x, pdf11);
 
