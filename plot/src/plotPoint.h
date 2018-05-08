@@ -1,3 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* 
+ * File:   MatLabPlot.cpp
+ * Author: Arvind Umrao
+ * Email akumrao@yahoo.com  akumrao@gmail.com
+ * Created on May 8, 2018, 12:00 AM
+ */
+
+
 #ifndef GRAPHPLOT_H
 #define GRAPHPLOT_H
 
@@ -32,10 +46,15 @@ const std::string version = "0.1.0";
 
 typedef std::vector<double> DataVector;
 
-class Plot
+class PlotPoint
 {
 public:
-    Plot(unsigned mode=PDF);
+    PlotPoint(unsigned mode=PDF);
+    
+    static PlotPoint* getInstance(unsigned mode=PDF);
+    static PlotPoint* ints;
+    static int instance;
+    
     void xlabel(const std::string &label);
     void ylabel(const std::string &label);
     void title(const std::string &label);
@@ -43,13 +62,27 @@ public:
     void linespec(unsigned lineIndex, LineSpecInput lineSpec);
     void linespec(unsigned lineIndex, LineProperty property, std::string value);
     void linespec(unsigned lineIndex, LineProperty property, double value);
+    void linespec(unsigned lineIndex,  std::string property, std::string value);
+     
     void grid(bool flag);
     void plot(std::initializer_list<DataVector> il);
+    void plot();
+    
+    void add(std::vector<double> &x);
     void print(const std::string &filenameExport);
     void exec(bool run_gnuplot=true);
+    
+    std::vector< std::vector<double> > vect1Plot ;
+    std::string Marker;
+    std::string MarkerValue;
+    
+    int size ;
+    
+    int vectCount; 
+    int markerCount;
 
 private:
-    std::string filenamePrefix;
+    std::string filename;
     std::string labelX;
     std::string labelY;
     std::string labelTitle;
@@ -61,7 +94,7 @@ private:
     std::list<std::string>          lineSpecOther;
     unsigned nCurve;
     bool isGridded;
-    std::string filenameExport;
+    //std::string filenameExport;
 
     bool flagScreen;
     bool flagHtml;
@@ -89,8 +122,9 @@ private:
     void gpHeader(std::ofstream &fout);
     void gpCurve(std::ofstream &fout, const std::string &filename, bool run_gnuplot);
     
-    static int instance;
+    
     std::string exportFileName();
+    std::string prefixfilename();
 };
 
 }
