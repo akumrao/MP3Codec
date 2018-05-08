@@ -12,19 +12,50 @@ double normal_pdf(double x, double mean, double sigma);
 
 
 
-//http://anderberg.me/2016/08/01/c-variadic-templates/
-
 
 
 
 int main() {
     
-    vector<double> foo {25, 15, 5, -5, -15};
-    vector<double> bar{1, 2, 3, 4, 5};
+    vector<double> x{1, 2, 3, 4, 5};
+    vector<double> y {25, 15, 5, -5, -15};
+
     
-    vector<double> foo1 {1, 2, 3, 4, 5};
-    vector<int> bar1{1, 2, 3, 4, 8};
- 
+    vector<double> x1 {1, 2, 3, 4, 5};
+    vector<double> y2{1, 2, 3, 4, 8};
+    
+    try 
+    {
+        plot(x, y, LineStyle, "--" );
+    
+        plot(y);
+    }
+    catch(std::exception & e)
+    {
+      cout <<  e.what() << std::endl;
+    }
+    
+    
+    xlabel("x");
+    ylabel("y"); // enhanced texts
+
+    legend({"({/Symbol m}, {/Symbol s}) = (1, 1)", "({/Symbol m}, {/Symbol s}) = (2, 2)"});
+    
+    grid(true); // turn on grids
+
+    
+    try 
+    {
+        plot(x, y, "Color", "r", "LineWidth", 10, x, y2, "Color", "b", "LineWidth", 1);
+    }
+    catch(std::exception & e)
+    {
+      cout <<  e.what() << std::endl;
+    }
+    
+   
+    try
+    {
     // Prepare sample data
     unsigned nPoint = 51;
     vector<double> x;
@@ -50,28 +81,17 @@ int main() {
     grid(true); // turn on grids
 
     graph::plot(x, pdf11, "Color", "r", "LineWidth", 10, x, pdf22, "Color", "b", "LineWidth", 1);
-    
-    
-    plot(foo, bar);
-    
-    plot(foo);
-    
-    return 0;
-    
-
-
-    vector<double> z = {3, 4, 5, 6, 9};
-    vector<double> t = {1, 2, 3, 4, 5};
-
-  
-
-    return 0;
+        
+    }
+    catch(std::exception & e)
+    {
+      cout <<  e.what() << std::endl;
+    }
 }
-
-
 
 double normal_pdf(double x, double mean, double sigma) {
     x -= mean;
     x /= sigma;
     return 1.0 / sqrt(2 * M_PI) / sigma * exp(-x * x / 2);
 }
+
